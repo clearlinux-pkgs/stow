@@ -6,7 +6,7 @@
 #
 Name     : stow
 Version  : 2.2.2
-Release  : 2
+Release  : 3
 URL      : http://ftp.gnu.org/gnu/stow/stow-2.2.2.tar.gz
 Source0  : http://ftp.gnu.org/gnu/stow/stow-2.2.2.tar.gz
 Source99 : http://ftp.gnu.org/gnu/stow/stow-2.2.2.tar.gz.sig
