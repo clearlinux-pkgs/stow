@@ -1,0 +1,4 @@
+2.2.2
+perl(Capture::Tiny)
+perl(IO::Scalar)
+perl(Test::Output)

@@ -1,0 +1,27 @@
+From 0bb5dc81a1149076a0d4a112856e9ee54e4dfe6b Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Fri, 19 Oct 2018 09:47:22 -0700
+Subject: [PATCH] Use Perl's vendor path
+
+---
+ configure | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure b/configure
+index b5b4ba6..130cd50 100755
+--- a/configure
++++ b/configure
+@@ -2365,8 +2365,8 @@ done
+ # but this is cleaner:
+ pmdir_relative_path=`\
+   $PERL -MConfig \
+-        -wle '($_ = $Config{installsitelib})
+-              =~ s!^\Q$Config{siteprefix}/!!; \
++        -wle '($_ = $Config{installvendorlib})
++              =~ s!^\Q$Config{vendorprefix}/!!; \
+               print'`
+ 
+ 
+-- 
+2.19.1
+

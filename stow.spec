@@ -6,18 +6,21 @@
 #
 Name     : stow
 Version  : 2.2.2
-Release  : 5
+Release  : 6
 URL      : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
 Source99 : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz.sig
 Summary  : 'manage the installation of multiple software packages'
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: stow-bin
-Requires: stow-doc
+Requires: stow-bin = %{version}-%{release}
+Requires: stow-license = %{version}-%{release}
+Requires: stow-man = %{version}-%{release}
+BuildRequires : buildreq-cpan
 BuildRequires : perl(Capture::Tiny)
 BuildRequires : perl(IO::Scalar)
 BuildRequires : perl(Test::Output)
+Patch1: 0001-Use-Perl-s-vendor-path.patch
 
 %description
 ===================
@@ -32,6 +35,8 @@ likewise recursively for any other subdirectories such as .../share,
 %package bin
 Summary: bin components for the stow package.
 Group: Binaries
+Requires: stow-license = %{version}-%{release}
+Requires: stow-man = %{version}-%{release}
 
 %description bin
 bin components for the stow package.
@@ -40,20 +45,38 @@ bin components for the stow package.
 %package doc
 Summary: doc components for the stow package.
 Group: Documentation
+Requires: stow-man = %{version}-%{release}
 
 %description doc
 doc components for the stow package.
 
 
+%package license
+Summary: license components for the stow package.
+Group: Default
+
+%description license
+license components for the stow package.
+
+
+%package man
+Summary: man components for the stow package.
+Group: Default
+
+%description man
+man components for the stow package.
+
+
 %prep
 %setup -q -n stow-2.2.2
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1520829659
+export SOURCE_DATE_EPOCH=1539968027
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -65,14 +88,16 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1520829659
+export SOURCE_DATE_EPOCH=1539968027
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/stow
+cp COPYING %{buildroot}/usr/share/package-licenses/stow/COPYING
 %make_install
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/Stow.pm
-/usr/lib/perl5/site_perl/5.26.1/Stow/Util.pm
+/usr/lib/perl5/vendor_perl/5.26.1/Stow.pm
+/usr/lib/perl5/vendor_perl/5.26.1/Stow/Util.pm
 
 %files bin
 %defattr(-,root,root,-)
@@ -80,7 +105,14 @@ rm -rf %{buildroot}
 /usr/bin/stow
 
 %files doc
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 %doc /usr/share/doc/stow/*
 %doc /usr/share/info/*
-%doc /usr/share/man/man8/*
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/stow/COPYING
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man8/stow.8
