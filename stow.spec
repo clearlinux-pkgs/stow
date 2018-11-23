@@ -96,8 +96,8 @@ cp COPYING %{buildroot}/usr/share/package-licenses/stow/COPYING
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/Stow.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Stow/Util.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Stow.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Stow/Util.pm
 
 %files bin
 %defattr(-,root,root,-)
