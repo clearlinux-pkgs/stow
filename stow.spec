@@ -6,7 +6,7 @@
 #
 Name     : stow
 Version  : 2.2.2
-Release  : 8
+Release  : 9
 URL      : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
 Source99 : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz.sig
