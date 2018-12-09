@@ -6,7 +6,7 @@
 #
 Name     : stow
 Version  : 2.2.2
-Release  : 9
+Release  : 10
 URL      : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
 Source99 : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz.sig
@@ -76,7 +76,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1539968027
+export SOURCE_DATE_EPOCH=1544391550
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -88,7 +88,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1539968027
+export SOURCE_DATE_EPOCH=1544391550
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stow
 cp COPYING %{buildroot}/usr/share/package-licenses/stow/COPYING
@@ -96,8 +96,8 @@ cp COPYING %{buildroot}/usr/share/package-licenses/stow/COPYING
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.1Stow.pm
-/usr/lib/perl5/vendor_perl/5.28.1Stow/Util.pm
+/usr/lib/perl5/vendor_perl/5.28.1/Stow.pm
+/usr/lib/perl5/vendor_perl/5.28.1/Stow/Util.pm
 
 %files bin
 %defattr(-,root,root,-)
