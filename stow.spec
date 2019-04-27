@@ -6,7 +6,7 @@
 #
 Name     : stow
 Version  : 2.2.2
-Release  : 10
+Release  : 11
 URL      : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
 Source99 : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz.sig
@@ -36,7 +36,6 @@ likewise recursively for any other subdirectories such as .../share,
 Summary: bin components for the stow package.
 Group: Binaries
 Requires: stow-license = %{version}-%{release}
-Requires: stow-man = %{version}-%{release}
 
 %description bin
 bin components for the stow package.
@@ -76,7 +75,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1544391550
+export SOURCE_DATE_EPOCH=1556389050
+export LDFLAGS="${LDFLAGS} -fno-lto"
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -88,7 +88,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1544391550
+export SOURCE_DATE_EPOCH=1556389050
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stow
 cp COPYING %{buildroot}/usr/share/package-licenses/stow/COPYING
@@ -96,8 +96,8 @@ cp COPYING %{buildroot}/usr/share/package-licenses/stow/COPYING
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.1/Stow.pm
-/usr/lib/perl5/vendor_perl/5.28.1/Stow/Util.pm
+/usr/lib/perl5/vendor_perl/5.28.2/Stow.pm
+/usr/lib/perl5/vendor_perl/5.28.2/Stow/Util.pm
 
 %files bin
 %defattr(-,root,root,-)
