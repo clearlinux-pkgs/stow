@@ -6,16 +6,18 @@
 #
 Name     : stow
 Version  : 2.2.2
-Release  : 11
+Release  : 12
 URL      : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz
-Source99 : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz.sig
+Source1 : https://mirrors.kernel.org/gnu/stow/stow-2.2.2.tar.gz.sig
 Summary  : 'manage the installation of multiple software packages'
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: stow-bin = %{version}-%{release}
+Requires: stow-info = %{version}-%{release}
 Requires: stow-license = %{version}-%{release}
 Requires: stow-man = %{version}-%{release}
+Requires: stow-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 BuildRequires : perl(Capture::Tiny)
 BuildRequires : perl(IO::Scalar)
@@ -45,9 +47,18 @@ bin components for the stow package.
 Summary: doc components for the stow package.
 Group: Documentation
 Requires: stow-man = %{version}-%{release}
+Requires: stow-info = %{version}-%{release}
 
 %description doc
 doc components for the stow package.
+
+
+%package info
+Summary: info components for the stow package.
+Group: Default
+
+%description info
+info components for the stow package.
 
 
 %package license
@@ -66,38 +77,50 @@ Group: Default
 man components for the stow package.
 
 
+%package perl
+Summary: perl components for the stow package.
+Group: Default
+Requires: stow = %{version}-%{release}
+
+%description perl
+perl components for the stow package.
+
+
 %prep
 %setup -q -n stow-2.2.2
+cd %{_builddir}/stow-2.2.2
 %patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1556389050
-export LDFLAGS="${LDFLAGS} -fno-lto"
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1573790585
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1556389050
+export SOURCE_DATE_EPOCH=1573790585
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stow
-cp COPYING %{buildroot}/usr/share/package-licenses/stow/COPYING
+cp %{_builddir}/stow-2.2.2/COPYING %{buildroot}/usr/share/package-licenses/stow/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
 %make_install
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Stow.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Stow/Util.pm
 
 %files bin
 %defattr(-,root,root,-)
@@ -107,12 +130,20 @@ cp COPYING %{buildroot}/usr/share/package-licenses/stow/COPYING
 %files doc
 %defattr(0644,root,root,0755)
 %doc /usr/share/doc/stow/*
-%doc /usr/share/info/*
+
+%files info
+%defattr(0644,root,root,0755)
+/usr/share/info/stow.info
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/stow/COPYING
+/usr/share/package-licenses/stow/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
 
 %files man
 %defattr(0644,root,root,0755)
 /usr/share/man/man8/stow.8
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.28.2/Stow.pm
+/usr/lib/perl5/vendor_perl/5.28.2/Stow/Util.pm
