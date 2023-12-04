@@ -6,7 +6,7 @@
 #
 Name     : stow
 Version  : 2.3.1
-Release  : 22
+Release  : 23
 URL      : https://mirrors.kernel.org/gnu/stow/stow-2.3.1.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/stow/stow-2.3.1.tar.gz
 Source1  : https://mirrors.kernel.org/gnu/stow/stow-2.3.1.tar.gz.sig
