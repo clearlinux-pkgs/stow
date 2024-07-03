@@ -1,4 +1,2 @@
-2.3.1
-perl(Capture::Tiny)
-perl(IO::Scalar)
+2.4.0
 perl(Test::Output)
