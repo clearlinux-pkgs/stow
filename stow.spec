@@ -9,7 +9,7 @@
 #
 Name     : stow
 Version  : 2.4.1
-Release  : 30
+Release  : 31
 URL      : https://mirrors.kernel.org/gnu/stow/stow-2.4.1.tar.gz
 Source0  : https://mirrors.kernel.org/gnu/stow/stow-2.4.1.tar.gz
 Source1  : https://mirrors.kernel.org/gnu/stow/stow-2.4.1.tar.gz.sig
